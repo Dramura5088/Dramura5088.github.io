@@ -1,3 +1,9 @@
 :root {
     color: red;
 }
+
+#holder {
+    height: 40vh;
+    width: 40vh;
+    border-radius: 1rem;
+}
