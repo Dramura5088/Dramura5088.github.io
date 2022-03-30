@@ -1,14 +1,27 @@
 <!DOCTYPE html> 
 <html>
     <head>
-        <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
         <link href="style.css" rel="stylesheet" type="text/css" />
         <script src="script.js"></script>
     </head>
     <body>
-        <div id = "holder">
-            <div id = "buttonHolder"></div>
-            <div id = "gridHolder"></div>
+        <div id="holder">
+            <div id="gridHolder">
+
+            </div>
+            <div id="buttonHolder">
+                <form id = "form">
+                    <label for="x">X: </label>
+                    <input type="number" id = "x" name ="x">
+                    <label for="y">Y: </label>
+                    <input type="number" id = "y" name ="y">
+                    <button id="GenerateGridForm"> Generate Grid </button>
+                </form>
+            </div>
         </div>
     </body>
 </html>
