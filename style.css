@@ -45,9 +45,16 @@ body {
 }
 
 #buttonHolder {
-    min-height: 20vh;
-    max-height: 20vh;
+    min-height: auto;
+    max-height: auto;
 
-    min-width: 20vw;
-    max-width: 20vw;
+    min-width: auto;
+    max-width: auto;
+
+    display: flex;
+    flex-direction: column-wrap;
+    justify-content: flex-end;
+    flex-wrap: ;
+
+    background-color: var(--second-colour);
 }
