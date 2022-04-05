@@ -31,8 +31,8 @@ body {
 }
 
 #gridHolder {
-    height: 40vw;
-    width: 40vw;
+    height: 40vmax;
+    width: 40vmax;
 
     border:white solid 1vw;
     border-radius: 25px;
@@ -50,10 +50,30 @@ input{
     border:none;
 }
 
-.row{
-
+.button{
+    width:fit-content; 
+    height:1rem; 
+    
+    background-color: white; 
+    border-radius: 25px; 
+    border: solid white 3px;
 }
 
-.column{
+.row{
+display:flex;
+flex-direction: row;
+flex-wrap: nowrap;
 
+ background-color: black;
+ width: 40vmax;
+ height: 1vmax;
+}
+
+.tile{
+    background-color: white;
+} 
+
+.tile:hover{
+    transition: 200ms;
+    background-color: grey;
 }
