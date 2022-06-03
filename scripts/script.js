@@ -1,4 +1,6 @@
-//const { aStar } = require(["scripts/astar.js"]);
+import { aStar } from "./astar";
+
+
 
 var xSize, ySize;
 var gridArray;
