@@ -1,3 +1,6 @@
+//const { astar } = require(["scripts/astar.js"]);
+//import * as astar from 'scripts/astar.js'
+
 var xSize, ySize;
 var gridArray;
 
@@ -39,7 +42,7 @@ function GenerateGrid(){
         //create new row.
         var newRowElement = document.createElement('div');
         newRowElement.setAttribute('class', 'row'); 
-        newRowElement.style.height = (40/ySize) + "vmax";
+        newRowElement.style.height = (70/ySize) + "vmin";
         document.getElementById('gridHolder').appendChild(newRowElement);
 
         gridArray.push([]);
@@ -50,10 +53,10 @@ function GenerateGrid(){
             //create new tile.
             var newElement = document.createElement('div');
             newElement.setAttribute('class', 'tile'); 
-            newElement.id = ('y' + y + 'x' + x);
-            newElement.style.height = (40/ySize) + "vmax";
+            newElement.id = (y + ',' + x);
+            newElement.style.height = (70/ySize) + "vmin";
             newElement.style.backgroundColor = 'white';
-            newElement.style.width = (40/xSize) + "vmax";
+            newElement.style.width = (70/xSize) + "vmin";
             newElement.style.margin = "0px";
             newElement.onclick = function(){
                 TileOnClick(this);
@@ -63,36 +66,83 @@ function GenerateGrid(){
             gridArray[y].push(new Tile(x, y, newElement, enEmpty));
         }
     }
-    console.log(gridArray);
+    //console.log(gridArray);
 
 
 }
 
 function TileOnClick (selElement) {
-    var curColor = selElement.style.backgroundColor;
+    var selColor = document.getElementById("placementSelection").value;
+    //console.log(selColor);
 
+    var id = selElement.id.split(',');
+    var tile = gridArray[id[0]][id[1]];
+    //console.log(tile);
 
-
-    //sel order empty -> wall -> target -> origin -> empty 
-
-    if (curColor == originCol) {
+    if (selColor == "empty") {
         selElement.style.backgroundColor = emptyCol;
+        tile.type = enEmpty;
     } 
-    else if (curColor == emptyCol) {
+    else if (selColor == "wall") {
         selElement.style.backgroundColor = wallCol;
+        tile.type = enWall;
     }
-    else if (curColor == wallCol) {
+    else if (selColor == "target") {
         selElement.style.backgroundColor = targetCol;
+        tile.type = enTarget;
     }
-    else if (curColor == targetCol) {
+    else if (selColor == "origin") {
         selElement.style.backgroundColor = originCol;
+        tile.type = enOrigin;
     }
+}
+
+function GeneratePath(){
+    
+
+    Astar(gridArray, false);
+}
+
+function Astar(jaggedArray, boolDiagonal = false){
+    
+
+    console.log(astar.search(convertToGraph(gridArray), boolDiagonal, [0,0],[4,0]));
+}
+
+function convertToGraph(jaggedArray){
+    var graph = [];
+
+    for (let row = 0; row < jaggedArray.length; row++) {
+        var newRow = [];
+
+        for (let tile = 0; tile < jaggedArray[row].length; tile++) {
+            if (jaggedArray[row][tile].type == enEmpty) {
+                
+            }
+            if (jaggedArray[row][tile].type == enWall) {
+                //  if wall
+                newRow.push(0);
+            }
+            else {
+                // if empty / target / origin
+                newRow.push(1);
+            }
+            
+        }
+        graph.push(newRow);
+    }
+    console.log(graph);
+    return graph;
+}
+
+function findOriginAndTarget(jaggedArray){
+
 }
 
 class Tile {
     constructor( x, y, element, type){
-        this.x = x;
         this.y = y;
+        this.x = x;
         this.element = element;
         this.type = type
     }

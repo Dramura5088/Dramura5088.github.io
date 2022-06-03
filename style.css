@@ -1,6 +1,7 @@
 :root {
     font-family: 'Ubuntu', sans-serif;
-    color: black;
+    font-size: 3vh;
+    color:black;
     --main-colour: orange;
     --second-colour: white;
 }   
@@ -8,15 +9,15 @@
 body {
     margin: 0px;
     min-width: 100vw;
-    min-height: 200vh;
+    min-height: 100vh;
     
     background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(253,187,45,1) 100%);
+    background: linear-gradient(0deg, rgb(237, 191, 92) 0%, rgba(253,187,45,1) 70%);
 }
 
 #holder {
-    min-width: 60vw;
-    max-width: 60vw;
+    min-width: 100vw;
+    max-width: auto;
 
     margin: 0;
     position: absolute;
@@ -31,23 +32,32 @@ body {
 }
 
 #gridHolder {
-    height: 40vmax;
-    width: 40vmax;
+    height: 70vmin;
+    width: 70vmin;
 
-    border:white solid 1vw;
-    border-radius: 25px;
+    border:white solid 2vmin;
+    border-radius: 0vmin;
 
     background-color: white;
     justify-self: center;
-    margin-bottom: 3vh;
+    margin-bottom: 3vmin;
 }
 
 #buttonHolder{
     margin:auto;
+    background-color: white;
+
+    border:white solid 2vmin;
+    border-radius: 0vmin;
 }
 
 input{
     border:none;
+    background-color: white;
+    
+    border:white solid 1vmin;
+    border-radius: 0vmin;
+    max-width: 10vh;
 }
 
 .button{
@@ -65,8 +75,8 @@ flex-direction: row;
 flex-wrap: nowrap;
 
  background-color: black;
- width: 40vmax;
- height: 1vmax;
+ width: 70vmin;
+ height: 1vmin;
 }
 
 .tile{

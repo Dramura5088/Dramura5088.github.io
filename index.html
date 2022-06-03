@@ -6,21 +6,38 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
         <link href="style.css" rel="stylesheet" type="text/css" />
-        <script src="script.js"></script>
+        <script src="scripts/require.js"></script>
+        <script src="scripts/script.js"></script>
+        <script src="scripts/astar.js" type="module"></script>
     </head>
     <body>
         <div id="holder">
-            <div id="gridHolder">
-                
-            </div>
+            <div id="gridHolder"></div>
+
             <div id="buttonHolder">
-                <form id = "form">
-                    <label for="x">X: </label>
-                    <input type="number" id = "x" name ="x">
-                    <label for="y">Y: </label>
-                    <input type="number" id = "y" name ="y">
-                    <button type='button' onclick="GenerateGrid()"> Generate Grid </button>
-                </form>
+                <div>
+                    <form id = "form">
+                        <label for="x">X: </label>
+                        <input type="number" id = "x" name ="x">
+                        <label for="y">Y: </label>
+                        <input type="number" id = "y" name ="y">
+                        <button type='button' onclick="GenerateGrid()"> Generate Grid </button>
+                    </form>
+                </div>
+                <div>
+                    <form id="form">
+                        Placement selection:
+                        <select id="placementSelection">
+                          <option value="empty">Empty</option>
+                          <option value="wall">Wall</option>
+                          <option value="target">Target</option>
+                          <option value="origin">Origin</option>
+                        </select>
+                      </form>
+                </div>
+                <div>
+                    <button type="button" onclick="GeneratePath()">GeneratePath</button>
+                </div>
             </div>
         </div>
     </body>
