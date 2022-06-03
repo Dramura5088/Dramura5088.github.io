@@ -1,5 +1,4 @@
-const { astar } = require(["scripts/astar.js"]);
-
+//const { aStar } = require(["scripts/astar.js"]);
 
 var xSize, ySize;
 var gridArray;
@@ -106,7 +105,7 @@ function GeneratePath(){
 function Astar(jaggedArray, boolDiagonal = false){
     
 
-    console.log(astar.search(convertToGraph(gridArray), boolDiagonal, [0,0],[4,0]));
+    console.log(aStar(convertToGraph(gridArray), boolDiagonal, [0,0],[4,0]));
 }
 
 function convertToGraph(jaggedArray){
