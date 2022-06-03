@@ -1,6 +1,5 @@
-//const { astar } = require(["scripts/astar.js"]);
-import {astar} from 'scripts/astar.js';
-import {Graph} from 'scripts/astar.js';
+const { astar } = require(["scripts/astar.js"]);
+
 
 var xSize, ySize;
 var gridArray;
