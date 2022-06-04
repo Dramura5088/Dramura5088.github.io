@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="gen.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="holder">
+            <div id="gridHolder"></div>
+
+            <div id="buttonHolder">
+                <div>
+                    <form id = "form">
+                        <label for="x">X: </label>
+                        <input type="number" id = "x" name ="x">
+                        <label for="y">Y: </label>
+                        <input type="number" id = "y" name ="y">
+                        <button type='button' id="Generate"> Generate Grid </button>
+                    </form>
+                </div>
+                <div>
+                    <form id="form">
+                        Placement selection:
+                        <select id="placementSelection">
+                          <option value="empty">Empty</option>
+                          <option value="wall">Wall</option>
+                          <option value="target">Target</option>
+                          <option value="origin">Origin</option>
+                        </select>
+                      </form>
+                </div>
+                <div>
+                    <form id="form">
+                    <button type="button" id="Pathfinding">GeneratePath</button>
+
+                        :
+                        <select id="algorithmSelection">
+                          <option value="astar">A*</option>
+                          <option value="dijkstra">Dijkstra</option>
+                        </select>
+                      <button type="button" id="Clearing">ClearPath</button>
+
+                      </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
