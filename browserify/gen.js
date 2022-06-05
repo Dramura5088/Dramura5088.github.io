@@ -1505,6 +1505,9 @@ var xSize, ySize, gridArray, origin, target, path;
 const enEmpty = 0, enWall = 1, enOrigin = 2, enTarget = 3, enPath = 4,
 emptyCol="white", wallCol="grey", originCol="blue", targetCol="red", hlCol = "green";
 
+// measurments
+var timeTaken, costTaken, lenghtTaken;
+
 function GenerateGrid(){
 
     // Deleting old rows.
@@ -1611,8 +1614,16 @@ function TileOnClick (selElement) {
 function GeneratePath(){
     ClearType(enPath);
 
+    
+    
+    if (document.getElementById("diagonalSel").value == 'true') {
+        var diagonalSel = true;
+    }
+    else {
+        var diagonalSel = false;
+    }
     var select = document.getElementById("algorithmSelection").value;
-
+    path = [];
     var pOrigin      = [origin.y,origin.x];//[0,0];
     var pTarget      = [target.y,target.x];//[2,2];
 
@@ -1622,37 +1633,43 @@ function GeneratePath(){
 
 
     if (select == 'astar') { // a*
+        var startTime   = performance.now();
+        var endTime     = 0;
         var graph       =  ConvertToAStarGraph(gridArray);
-        var easystar = new easystarjs.js();
+        var easystar    = new easystarjs.js();
 
         easystar.setGrid(graph);
         easystar.setAcceptableTiles([1]);
-        easystar.enableDiagonals();
+        if (diagonalSel) {
+            easystar.enableDiagonals();
+        }
         easystar.enableSync();
     
-        path = [];
+        
         easystar.findPath(pOrigin[1], pOrigin[0], pTarget[1], pTarget[0], function( aStarPath ) {
-            if (aStarPath === null) {
-                console.log("A* Path was not found.");
-            } else {
-                console.log("A* Path was found.");
-                console.log(aStarPath);
+            if (aStarPath != null) {
                 path = aStarPath;
-                console.log(path);
-            }
+                //console.log("A* Path was not found.");
+            } 
+            endTime = performance.now();
+            timeTaken = endTime - startTime;
+            //console.log(startTime);
+            //console.log(endTime);
+            console.log(timeTaken);
         });
         easystar.calculate();
     }
     else { // dijkstra
         var originKey = (((pOrigin[0]) * gridArray[pOrigin[0]].length) + pOrigin[1]);
         var targetKey = (((pTarget[0]) * gridArray[pTarget[0]].length) + pTarget[1]);
-        var graph = ConvertToDijkstraGraph(gridArray);
+
+        var startTime   = performance.now();
+        var graph = ConvertToDijkstraGraph(gridArray, diagonalSel);
         var diPath = graph.path(originKey, targetKey);
-        path = [];
 
         //console.log("oKey: " + originKey + " | tKey: " + targetKey);
-        console.log("Dijkstra path: ");
-        console.log(diPath);
+        //console.log("Dijkstra path: ");
+        //console.log(diPath);
         
 
         //make it into a readable format
@@ -1665,9 +1682,16 @@ function GeneratePath(){
                 }
             path.push({'x': x, 'y': y});
         }
+        endTime = performance.now();
+        timeTaken = endTime - startTime;
+        console.log(timeTaken );
     }
 
+    GetCombinedTileCost();
+    printMeasuredData();
+
     console.log(path);
+    console.log(costTaken);
     PathHighlinghting();
 }
 function PathHighlinghting(){
@@ -1676,7 +1700,7 @@ function PathHighlinghting(){
         return;
     }
 
-    for (let i = 0; i < path.length; i++) {
+    for (let i = 1; i < path.length -1; i++) {
         var cords = Object.values(path[i]);
         var x = cords[0];
         var y = cords[1];
@@ -1727,7 +1751,7 @@ function ConvertToAStarGraph(jaggedArray){
     //console.log(graph);
     return graph;
 }
-function ConvertToDijkstraGraph(jaggedArray , diagonalCost = 14, normalCost = 10){
+function ConvertToDijkstraGraph(jaggedArray , canDiagonal, diagonalCost = 1.4, normalCost = 1.0){
     const graph = new Graph();
 
     nMax = (jaggedArray.length) * (jaggedArray[0].length) - 1;
@@ -1748,14 +1772,14 @@ function ConvertToDijkstraGraph(jaggedArray , diagonalCost = 14, normalCost = 10
             , iBotRight   = n + rowLenght + 1; 
 
 
-            if (iTopLeft >= 0 && x != 0 && jaggedArray[y][x].type != enWall) { // top left
+            if (iTopLeft >= 0 && x != 0 && jaggedArray[y][x].type != enWall && canDiagonal) { // top left
                 
                 connections.set(iTopLeft, diagonalCost);
             }
             if (iTopMid >= 0 && jaggedArray[y][x].type != enWall) { // top middle
                 connections.set(iTopMid, normalCost);
             }
-            if (iTopRight >= 0 && x != rowLenght - 1 && jaggedArray[y][x].type != enWall) { // top right
+            if (iTopRight >= 0 && x != rowLenght - 1 && jaggedArray[y][x].type != enWall && canDiagonal) { // top right
                 connections.set(iTopRight, diagonalCost);
             }
             if (x != 0 && jaggedArray[y][x].type != enWall) { // left
@@ -1764,13 +1788,13 @@ function ConvertToDijkstraGraph(jaggedArray , diagonalCost = 14, normalCost = 10
             if (x != rowLenght - 1 && jaggedArray[y][x].type != enWall) { // right
                 connections.set(iRight, normalCost);
             }
-            if (iBotLeft <= nMax && x != 0 && jaggedArray[y][x].type != enWall) { // bot left
+            if (iBotLeft <= nMax && x != 0 && jaggedArray[y][x].type != enWall && canDiagonal) { // bot left
                 connections.set(iBotLeft, diagonalCost);
             }
             if (iBotMid <= nMax &&  jaggedArray[y][x].type != enWall) { // bot middle
                 connections.set(iBotMid, normalCost);
             }
-            if (iBotRight <= nMax && x != rowLenght - 1 && jaggedArray[y][x].type != enWall) { // bot right
+            if (iBotRight <= nMax && x != rowLenght - 1 && jaggedArray[y][x].type != enWall && canDiagonal) { // bot right
                 connections.set(iBotRight, diagonalCost);
             }
             
@@ -1783,8 +1807,43 @@ function ConvertToDijkstraGraph(jaggedArray , diagonalCost = 14, normalCost = 10
     //console.log(graph);
     return graph;
 }
+function GetCombinedTileCost(){
+    if (path == null){
+        return;
+    }
+    
+    var cost = 0;
+    var diagonals = 0;
+    var normals = 0;
 
+    for (let i = 1; i < path.length; i++ ) {
+        var lastCords = Object.values(path[i-1]);
+        var curCords = Object.values(path[i]);
+        
+        if (path[i-1].x - 1 == path[i].x || path[i-1].x + 1 == path[i].x) { // left or right
+            if (path[i-1].y == path[i].y) { // if they have the same y then it cant have moved up or down
+                cost += 10;
+                normals +=1;
+            }
+            else { // if y arent equal then it moved diagonal.
+                cost += 14;
+                diagonals +=1;
+            }
+        }
+        else { // moved up or down.
+            cost += 10;
+            normals +=1;
+        }
+    }
+    costTaken = cost;
+    lenghtTaken = "Normal steps taken: " + normals + " steps<br>Diagonal steps taken: " + diagonals;
+}
+function printMeasuredData(){
 
+    document.getElementById("result1").innerHTML = "Time Taken: " + (Math.round((timeTaken + Number.EPSILON) * 1000) / 1000) + "ms";
+    document.getElementById("result2").innerHTML = "Cost Taken: " + costTaken; 
+    document.getElementById("result3").innerHTML = lenghtTaken;
+}
 
 /*function findOfType(target = enTarget){
     var returnArray = [];

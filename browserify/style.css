@@ -1,6 +1,6 @@
 :root {
     font-family: 'Ubuntu', sans-serif;
-    font-size: 3vh;
+    font-size: 2vmin;
     color:black;
     --main-colour: orange;
     --second-colour: white;
@@ -26,9 +26,11 @@ body {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display:flex;
+    flex-direction: row;
+    margin:auto;
+    flex-wrap:nowrap;
+    justify-content: center;
 }
 
 #gridHolder {
@@ -36,45 +38,79 @@ body {
     width: 70vmin;
 
     border:white solid 2vmin;
-    border-radius: 0vmin;
+    border-radius: 7px;
 
     background-color: white;
     justify-self: center;
-    margin-bottom: 3vmin;
+}
+
+#optionsHolder{
+    display:flex;
+    flex-direction: column;
+    flex-wrap:nowrap;
+    justify-content: center;
+    background-color: none;
+    width: fit-content;
+    height: auto;
+    margin-left: 4vmin;
 }
 
 #buttonHolder{
-    margin:auto;
     background-color: white;
-
     border:white solid 2vmin;
-    border-radius: 0vmin;
+    border-radius: 3px;
+    width: 40vmin;
+    height: auto;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+}
+
+#resultsHolder{
+    background-color: white;
+    border:white solid 2vmin;
+    border-radius: 3px;
+    height: 13vmin;
+    width: 40vmin;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+}
+
+select, button, input{  
+    border: solid var(--main-colour) 2px;
+    border-radius:3px;
+    padding: 1px;
+    height: 3vmin;
+    max-height: 3vmin;
+    min-height: 2.5vmin;
+    max-width: 15vmin;
+    margin: 1px;
+    font-size: 2vmin;
+}
+
+select{
+    max-width: 20vmin;
+    padding: 0px;
+    max-height: 3.2vmin;
+    height: 3.2vmin;
 }
 
 input{
-    border:none;
-    background-color: white;
-    
-    border:white solid 1vmin;
-    border-radius: 0vmin;
-    max-width: 10vh;
+    width: 10vmin;
 }
 
-.button{
-    width:fit-content; 
-    height:1rem; 
-    
-    background-color: white; 
-    border-radius: 25px; 
-    border: solid white 3px;
+select::selection{
+    border: solid rgb(0, 0, 0) 2px;
 }
 
+.text{
+    width: fit-content;
+}
 .row{
 display:flex;
 flex-direction: row;
 flex-wrap: nowrap;
 
- background-color: black;
+ background-color: none;
  width: 70vmin;
  height: 1vmin;
 }
