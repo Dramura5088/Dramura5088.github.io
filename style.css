@@ -117,6 +117,7 @@ flex-wrap: nowrap;
 
 .tile{
     background-color: white;
+    border: solid black 1px;
 } 
 
 .tile:hover{

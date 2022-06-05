@@ -1554,8 +1554,10 @@ function GenerateGrid(){
             newElement.setAttribute('class', 'tile'); 
             newElement.id = (y + ',' + x);
             newElement.style.height = (70/ySize) + "vmin";
+            newElement.style.height -= 2+"px";
             newElement.style.backgroundColor = emptyCol;
             newElement.style.width = (70/xSize) + "vmin";
+            newElement.style.width -= 2+"px";
             newElement.style.margin = "0px";
             newElement.onclick = function(){
                 TileOnClick(this);
