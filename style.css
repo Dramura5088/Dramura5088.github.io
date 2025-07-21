@@ -15,7 +15,23 @@ body {
     background: linear-gradient(0deg, rgb(237, 191, 92) 0%, rgba(253,187,45,1) 70%);
 }
 
-#holder {
+#menu{
+    margin: 0;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    display:flex;
+    flex-direction: column;
+    margin:auto;
+    margin-top: 1vh;
+    flex-wrap:nowrap;
+    justify-content: center;
+}
+
+#holder, #ff14Holder {
     min-width: 100vw;
     max-width: auto;
 
@@ -29,11 +45,12 @@ body {
     display:flex;
     flex-direction: row;
     margin:auto;
+    margin-top: 1vh;
     flex-wrap:nowrap;
     justify-content: center;
 }
 
-#gridHolder {
+#gridHolder, #gridHolderFF {
     height: 70vmin;
     width: 70vmin;
 
@@ -44,7 +61,7 @@ body {
     justify-self: center;
 }
 
-#optionsHolder{
+#optionsHolder, #optionsHolderFF{
     display:flex;
     flex-direction: column;
     flex-wrap:nowrap;
@@ -65,7 +82,7 @@ body {
     margin-bottom: 1vmin;
 }
 
-#resultsHolder{
+#resultsHolder, #resultsHolderFF{
     background-color: white;
     border:white solid 2vmin;
     border-radius: 3px;
@@ -105,7 +122,7 @@ select::selection{
 .text{
     width: fit-content;
 }
-.row{
+.row, .rowFF{
 display:flex;
 flex-direction: row;
 flex-wrap: nowrap;
@@ -115,12 +132,12 @@ flex-wrap: nowrap;
  height: 1vmin;
 }
 
-.tile{
+.tile, .tileFF{
     background-color: white;
     border: solid var(--main-colour) 1px;
 } 
 
-.tile:hover{
+.tile:hover, .tileFF:hover{
     transition: 200ms;
     background-color: grey;
 }
